@@ -26,4 +26,4 @@ Add the app to your TK config along with the following file to your config/env/i
  
     settings.sb-shotgun-schema-introspection:
         menu_name: Schema Introspection
-        location: '@apps.tk-shotgun-schema-introspection.location'
+        location: '@apps.sb-shotgun-schema-introspection.location'
