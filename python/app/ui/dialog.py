@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'sgFieldUI.ui'
+# Form implementation generated from reading ui file 'dialog.ui'
 #
-# Created: Wed Apr 19 13:38:31 2017
+# Created: Thu Apr 16 11:41:25 2020
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide import QtCore, QtGui
+from tank.platform.qt import QtCore, QtGui
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -63,6 +63,7 @@ class Ui_Form(object):
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.label_2 = QtGui.QLabel(self.verticalLayoutWidget_5)
+        self.label_2.setMinimumSize(QtCore.QSize(0, 24))
         self.label_2.setStyleSheet("font: 75 12pt \"Arial\";")
         self.label_2.setObjectName("label_2")
         self.verticalLayout_5.addWidget(self.label_2)
@@ -84,6 +85,7 @@ class Ui_Form(object):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label = QtGui.QLabel(self.verticalLayoutWidget_2)
+        self.label.setMinimumSize(QtCore.QSize(0, 24))
         self.label.setStyleSheet("font: 75 12pt \"Arial\";")
         self.label.setObjectName("label")
         self.verticalLayout_2.addWidget(self.label)
@@ -102,10 +104,12 @@ class Ui_Form(object):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
         self.EntitiesLbl.setText(QtGui.QApplication.translate("Form", "Entities", None, QtGui.QApplication.UnicodeUTF8))
         self.refreshPushButton.setText(QtGui.QApplication.translate("Form", "Refresh", None, QtGui.QApplication.UnicodeUTF8))
+        self.entityTable.setSortingEnabled(True)
         self.entityTable.horizontalHeaderItem(0).setText(QtGui.QApplication.translate("Form", "Entity Display Name", None, QtGui.QApplication.UnicodeUTF8))
         self.entityTable.horizontalHeaderItem(1).setText(QtGui.QApplication.translate("Form", "Entity Internal Name", None, QtGui.QApplication.UnicodeUTF8))
         self.removeConnectionsCheckBox.setText(QtGui.QApplication.translate("Form", "Remove Connection Entities from Results", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("Form", "Fields", None, QtGui.QApplication.UnicodeUTF8))
+        self.fieldsTable.setSortingEnabled(True)
         self.fieldsTable.horizontalHeaderItem(0).setText(QtGui.QApplication.translate("Form", "Field Display Name", None, QtGui.QApplication.UnicodeUTF8))
         self.fieldsTable.horizontalHeaderItem(1).setText(QtGui.QApplication.translate("Form", "Field  Internal Name", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("Form", "Shotgun Schema", None, QtGui.QApplication.UnicodeUTF8))

@@ -18,7 +18,7 @@ from collections import OrderedDict
 # by importing QT from sgtk rather than directly, we ensure that
 # the code will be compatible with both PySide and PyQt.
 from sgtk.platform.qt import QtCore, QtGui
-from .ui.sgFieldUI import Ui_Form
+from .ui.dialog import Ui_Form
 
 
 def show_dialog(app_instance):
@@ -31,11 +31,11 @@ def show_dialog(app_instance):
 
     # we pass the dialog class to this method and leave the actual construction
     # to be carried out by toolkit.
-    app_instance.engine.show_dialog("Shotgun Schema Introspection", app_instance, SGFieldUI)
+    app_instance.engine.show_dialog("Shotgun Schema Introspection", app_instance, SGSchemaIntrospectionUi)
 
 
-class SGFieldUI(QtGui.QWidget):
-    def __init__(self, givenArgs=[], parent=None):
+class SGSchemaIntrospectionUi(QtGui.QWidget):
+    def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
@@ -68,19 +68,19 @@ class SGFieldUI(QtGui.QWidget):
         self.getEntities()
 
     def getEntities(self):
-        removeConnections = self.ui.removeConnectionsCheckBox.isChecked()
+        remove_connections = self.ui.removeConnectionsCheckBox.isChecked()
 
         self.entities = self.sg.schema_entity_read()
 
         # Remove Connections from list
-        newDict = {}
+        new_dict = {}
         for key, value in self.entities.iteritems():
-            if removeConnections:
+            if remove_connections:
                 if re.search('Connection', key):
                     continue
-            newDict[key] = value
+            new_dict[key] = value
 
-        self.entities = OrderedDict(sorted(newDict.items(), key=lambda t: t[1]['name']['value']))
+        self.entities = OrderedDict(sorted(new_dict.items(), key=lambda t: t[1]['name']['value']))
 
         i = 0
         self.ui.entityTable.clearContents()
@@ -95,15 +95,15 @@ class SGFieldUI(QtGui.QWidget):
         self.ui.entityTable.resizeColumnsToContents()
 
     def chooseEntity(self, item):
-        entityType = None
+        entity_type = None
         item = self.ui.entityTable.item(item.row(), 1)
         if item:
-            entityType = item.text()
+            entity_type = item.text()
 
-        if not entityType:
+        if not entity_type:
             return
 
-        self.curData = self.sg.schema_field_read(entityType)
+        self.curData = self.sg.schema_field_read(entity_type)
 
         # Sort and List Fields
         self.fSort = list(self.curData.keys())
@@ -113,13 +113,13 @@ class SGFieldUI(QtGui.QWidget):
             self.fdList[each] = {}
             self.fdList[each]['dname'] = self.curData[each]['name']['value']
             self.fdList[each]['kname'] = each
-            jList = []
-            jSort = list(self.curData[each].keys())
-            jSort.sort()
-            for j in jSort:
-                jList.append(j)
-                jList.append('\t%s' % str(self.curData[each][j]))
-            self.fdList[each]['data'] = '\n'.join(jList)
+            j_list = []
+            j_sort = list(self.curData[each].keys())
+            j_sort.sort()
+            for j in j_sort:
+                j_list.append(j)
+                j_list.append('\t%s' % str(self.curData[each][j]))
+            self.fdList[each]['data'] = '\n'.join(j_list)
 
         self.ui.fieldsTable.clearContents()
         self.ui.fieldsTable.setRowCount(len(self.fdList))
@@ -133,6 +133,6 @@ class SGFieldUI(QtGui.QWidget):
         self.ui.fieldsTable.resizeColumnsToContents()
 
     def getFieldData(self, item):
-        self.curField = self.fSort[item.row()]
+        self.cur_field = self.fSort[item.row()]
         self.ui.FieldDataEdt.clear()
-        self.ui.FieldDataEdt.setPlainText(self.fdList[self.curField]['data'])
+        self.ui.FieldDataEdt.setPlainText(self.fdList[self.cur_field]['data'])

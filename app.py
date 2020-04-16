@@ -8,12 +8,13 @@
 # agreement to the Shotgun Pipeline Toolkit Source Code License. All rights
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
-
+import re
 from sgtk.platform import Application
 
-class SgtkStarterApp(Application):
+
+class ShotgunSchemaIntrospection(Application):
     """
-    The app entry point. This class is responsible for intializing and tearing down
+    The app entry point. This class is responsible for initializing and tearing down
     the application, handle menu registration etc.
     """
 
@@ -38,9 +39,12 @@ class SgtkStarterApp(Application):
 
         menu_name = self.get_setting('menu_name')
 
+        display_name = self.get_setting("menu_name")
+        # "SG Schema Introspection" ---> sg_schema_introspection
+        short_name = display_name.lower()
+        # replace all non alphanumeric characters by '_'
+        short_name = re.sub('[^0-9a-zA-Z]+', '_', short_name)
+
         # now register the command with the engine
-        self.engine.register_command(menu_name,
-                                     menu_callback,
-                                     {"type": "panel",
-                                      "short_name": "sg_schema"}
-                                     )
+        self.engine.register_command(menu_name, menu_callback, {"type": "panel",
+                                                                "short_name": short_name})
