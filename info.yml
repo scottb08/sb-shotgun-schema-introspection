@@ -12,6 +12,27 @@
 
 # expected fields in the configuration file for this engine
 configuration:
+    menu_name:
+      type: str
+      default_value: "SG Schema Introspection"
+
+    deny_permissions:
+        type: list
+        values: {type: shotgun_permission_group}
+        allows_empty: True
+        description: "An optional parameter which lets you limit the visibility of this app.
+                     If you for example put in ['Artist'] as the value for this parameter,
+                     any user belonging to the shotgun permissions group Artist will not be
+                     able to see or execute the App."
+
+    deny_platforms:
+        type: list
+        values: {type: str}
+        allows_empty: True
+        description: "An optional parameter which lets you turn off this app on certain platforms.
+                     If you don't want it to appear on the Shotgun Pipeline Toolkit action menu for
+                     a platform, just include it in the the deny_platforms list. Valid values are
+                     Windows, Mac and Linux."
 
 # this app works in all engines - it does not contain
 # any host application specific commands

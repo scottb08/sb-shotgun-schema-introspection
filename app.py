@@ -38,13 +38,20 @@ class ShotgunSchemaIntrospection(Application):
         menu_callback = lambda: app_payload.dialog.show_dialog(self)
 
         menu_name = self.get_setting('menu_name')
+        deny_permissions = self.get_setting("deny_permissions")
+        deny_platforms = self.get_setting("deny_platforms")
 
-        display_name = self.get_setting("menu_name")
         # "SG Schema Introspection" ---> sg_schema_introspection
-        short_name = display_name.lower()
+        short_name = menu_name.lower()
         # replace all non alphanumeric characters by '_'
         short_name = re.sub('[^0-9a-zA-Z]+', '_', short_name)
 
+        params = {
+            "title": menu_name,
+            "short_name": short_name,
+            "deny_permissions": deny_permissions,
+            "deny_platforms": deny_platforms,
+        }
+
         # now register the command with the engine
-        self.engine.register_command(menu_name, menu_callback, {"type": "panel",
-                                                                "short_name": short_name})
+        self.engine.register_command(menu_name, menu_callback, params)
