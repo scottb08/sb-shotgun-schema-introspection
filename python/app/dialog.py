@@ -74,7 +74,7 @@ class SGSchemaIntrospectionUi(QtGui.QWidget):
 
         # Remove Connections from list
         new_dict = {}
-        for key, value in self.entities.iteritems():
+        for key, value in self.entities.items():
             if remove_connections:
                 if re.search('Connection', key):
                     continue
@@ -85,7 +85,7 @@ class SGSchemaIntrospectionUi(QtGui.QWidget):
         i = 0
         self.ui.entityTable.clearContents()
         self.ui.entityTable.setRowCount(len(self.entities))
-        for entity_type, entity_name in self.entities.iteritems():
+        for entity_type, entity_name in self.entities.items():
             item = QtGui.QTableWidgetItem(entity_name['name']['value'])
             self.ui.entityTable.setItem(i, 0, item)
             item = QtGui.QTableWidgetItem(entity_type)
